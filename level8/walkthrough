@@ -6,19 +6,29 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:35 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 18:52:48 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/04 20:53:29 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+The executable compares the input with a series of keywords
+Each keyword has an associated action
+After each keyword has been checked for,
+	it displays the value of the global variable auth and service
 
-readelf -x .rodata ./level8
+auth ->
+	set auth to input + strlen("auth ")
+reset ->
+	free auth, but does not set to null
+service ->
+	set auth to input + strlen("service")
+login ->
+	if (auth[32])
+		system("/bin/sh);
+	else
+		puts("Password:\n");
 
-printf auth service
-auth -> auth = arg
-reset -> free(auth)
-service -> service = arg
-login -> disp Password or SH
-
+Simply calling auth once, and service twice, will result in the second service
+	being allocated exactly 32 bytes after auth
 
 level8@RainFall:~$ ./level8
 (nil), (nil)
