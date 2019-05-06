@@ -6,7 +6,22 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:08 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 18:53:02 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 03:50:13 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+The executable uses gets to receive user input
+
+Gets does no bound checking, and is therefore very unsafe
+
+Writing more than 75 character (76 counting the \0) segfaults
+
+Using GDB we see that we are overwriting the return string
+
+We also find a function called 'run' that executes /bin/sh
+
+Taking all that into account, we use the gets overflow
+	We write the address of 'run' (0x08048444) over the return address
+
+echo -e "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\x44\x84\x04\x08" > /tmp/l1
+cat /tmp/l1 | ./level1

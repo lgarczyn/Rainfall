@@ -6,7 +6,11 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:05 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 18:53:02 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 03:50:14 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+The executable simply runs atoi on the first argument, then compares the result to 423
+
+./level0 423
+> cd ../level1 && cat .pass

