@@ -19,6 +19,6 @@ int		main(int argc, char **argv)
 	char *mem = malloc(64);
 	char *mem2 = malloc(4);
 	*mem2 = 0x8048468;
-	strcpy(mem, (char*)(argv + 4));
+	strcpy(mem, (char*)(argv[1]));
 	return (*mem2);
 }
