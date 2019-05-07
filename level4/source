@@ -1,0 +1,30 @@
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int		g = 0;
+
+int		p(char *fmt)
+{
+	return (printf(fmt));
+}
+
+int		n(void)
+{
+	char str[512];
+	fgets(str, 512, stdin);
+	p(str);
+	int s;
+	if (g == 0x1025544)
+		s = system("/bin/cat /home/user/level5/.pass");
+	else
+		s = g;
+	return (s);
+}
+
+int		main(void)
+{
+	return (n());
+}

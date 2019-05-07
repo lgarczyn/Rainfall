@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int		g = 0;
+
+int		v(void)
+{
+	char str[512];
+	fgets(str, 512, stdin);
+	printf(str);
+	int		s;
+	if (g == 64)
+	{
+		fwrite("Wait what ?!\n", 1, 12, stderr);
+		s = system("/bin/sh");
+	}
+	else
+		s = g;
+	return (s);
+}
+
+int		main(void)
+{
+	return (v());
+}

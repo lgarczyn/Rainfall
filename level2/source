@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int p(void)
+{
+	int	str = 0;
+	fflush(NULL);
+	gets((char*)&str);
+	int	val;
+	if ((val & -0x50000000) != -0x50000000)
+	{
+		puts((char*)&str);
+		return ((int)strdup((char*)&str));
+	}
+	printf("(%p)\n", (int*)val);
+	exit (1);
+}
+
+int		main(void)
+{
+	return (p());
+}

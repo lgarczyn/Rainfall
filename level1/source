@@ -1,0 +1,7 @@
+#include <stdio.h>
+int		main()
+{
+	char buf[75];
+	gets(buf);
+	return (0);
+}
