@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+char		*service;
+char		*auth;
+
+int			main(void)
+{
+	char	buffer[0x80];
+
+
+	while (1)
+	{
+		printf("%p, %p \n", auth, service);
+
+		char *res = fgets(buffer, 0x80, stdin);
+
+		if (!res)
+			break;
+		
+		if (strncmp(buffer, "auth ", 5) == 0)
+		{
+			auth = malloc(4);
+			*(int*)auth = 0;
+
+			if (strlen(buffer + 5) - 1 < 0x1E)
+				strcpy(auth, buffer + 5);
+		}
+
+		if (strncmp(buffer, "reset", 5) == 0)
+			free(auth);
+		
+		if (strncmp(buffer, "service", 6) == 0)
+			service = strdup(buffer + 7);
+		
+		if (strncmp(buffer, "login", 5) == 0)
+		{
+			if (auth[0x20])
+				system("/bin/sh");
+			else
+				fwrite(&"Password:\n", 10, 1, stdout);
+		}
+	}
+}
