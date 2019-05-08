@@ -1,11 +1,9 @@
 #include <stdlib.h>
 
-char		*ds0;
-
 int			main(int argc, char **argv)
 {
-	int		i = atoi(argv[1]);
 	char	buffer[80];
+	int		i = atoi(argv[1]);
 
 	if (i > 9)
 		return (1);
