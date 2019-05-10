@@ -1,1 +1,24 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    walkthrough                                        :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/05/10 20:22:34 by lgarczyn          #+#    #+#              #
+#    Updated: 2019/05/10 20:26:25 by lgarczyn         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+The executable reads a file, and stores the data.
+It then uses the first argument to:
+	truncate that data using atoi(argv[1])
+	compare that data using strcmp(data, argv[1])
+
+We want to avoid the comparison, so we don't have to guess that data at all
+Feeding "" to the executable:
+	truncates the data to ""
+	which is then compared to ""
+
+So we just need to do:
 ./bonus3 ""
