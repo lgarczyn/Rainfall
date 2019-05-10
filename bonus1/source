@@ -10,7 +10,7 @@ int			main(int argc, char **argv)
 	
 	int ecx = i * 4;
 
-	memcpy(buffer, argv[2], ecx);
+	memcpy(buffer, argv[2], (short)ecx);
 
 	if (i != 0x574F4C46)
 		return (0);
