@@ -6,7 +6,7 @@
 #    By: lgarczyn <lgarczyn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/08 04:51:49 by lgarczyn          #+#    #+#              #
-#    Updated: 2019/05/08 07:50:34 by lgarczyn         ###   ########.fr        #
+#    Updated: 2019/05/10 20:30:31 by lgarczyn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,12 @@ The executable takes two argument
 	2: the string itself
 
 It checks that the string is not too long, but with a signed jump operation (jle).
-Because memcpy takes an unsigned int, we can send a negative len.
+Because memcpy takes a truncated unsigned int, we can send a negative len.
 
 This will bypass the first check.
 
 We use a value of "-2147483608" (INTMIN + 40).
-This length translates to a memcpy length of 160 (40 * 4).
+This length translates to a memcpy length of 160 (40 * 4), once truncated to 16 bits.
 
 The second check compares the second argument again, stored on the stack, to 0x574F4C46.
 
