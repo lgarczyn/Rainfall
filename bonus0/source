@@ -59,6 +59,7 @@ char			*pp(char *buf)
 	char		buf3[64];
 	p(buf3, " - ");
 	strcpy(buf, buf2);
+	buf[strlen(buf)] = ' ';
 	return (strcat(buf, buf3);
 }
 
