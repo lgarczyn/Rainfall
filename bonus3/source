@@ -11,7 +11,7 @@ int		main(int argc, char **argv)
 	char data[67];
 	fread(data, 1, 66, file);
 	data[66] = 0;
-	*(char*)(atoi(argv[1]) + 24) = 0;
+	data[atoi(argv[1])] = 0;
 	char data2[66];
 	fread(data2, 1, 65, file);
 	if (strcmp(data, argv[1]) == 0)
