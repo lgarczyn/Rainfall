@@ -1,27 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
+
 char		*p(char *buf, char *str)
 {
 	char	buf2[4096];
 
 	puts (str);
 	read(0, buf2, 4096);
-	*strchr(buf, 10) = 0;
-	return (strncpy(buf, buf2, 20);
+	*strchr(buf2, 10) = 0;
+	return (strncpy(buf, buf2, 20));
 }
 
 char			*pp(char *buf)
 {
 	char		buf2[20];
 	p(buf2, " - ");
-	char		buf3[20];
+	char		buf3[28];
 	p(buf3, " - ");
 	strcpy(buf, buf2);
 	buf[strlen(buf)] = ' ';
-	return (strcat(buf, buf3);
+	return (strcat(buf, buf3));
 }
 
 int			main(void)
-	{
-	char	buf[64];
+{
+	char	padding[0x40 - 22];
+	char	buf[22];
 	pp(buf);
 	puts(buf);
 	return (1);
