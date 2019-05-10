@@ -1,37 +1,42 @@
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 int			language = 0;
 
-void		greetuser(char *user)
+void		greetuser(char *display, int size)
 {
+	char	buffer[0x58];
 	char	*greeting;
 
-	// More weird stuff for each language
 	if (language == 1)
 		greeting = "Hyvää päivää ";
 	else if (language == 2)
 		greeting = "Goedemiddag! ";
 	else if (language == 0)
 		greeting = "Hello ";
-	strcat(user, greeting);
-	puts(user);
+	strcat(display, greeting);
+	puts(display);
 }
 
 int			main(int argc, char **argv)
 {
+	char	display[0x28];
+	char	arg1[0x20];
+
 	if (argc != 3)
 		return (1);
 	
-	//weird arg strncpy
+	memset(display, 0, 0x13);
+	strncpy(display, argv[2], 0x28);
+	strncpy(arg1, argv[1], 0x20);
 	
-	char *language = getenv("LANG");
+	char *env_lang = getenv("LANG");
 
-	if (strncmp(language, "fi", 2) == 0)
+	if (strncmp(env_lang, "fi", 2) == 0)
 		language = 1;
-	else if (strncmp(language, "nl", 2) == 0)
+	else if (strncmp(env_lang, "nl", 2) == 0)
 		language = 2;
 
-	//more weird string manipulation
-	greetuser(argv[1]);
+	greetuser(display, 0x13);
 }
