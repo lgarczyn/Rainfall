@@ -5,10 +5,10 @@
 int p(void)
 {
 	int	str = 0;
-	fflush(NULL);
+	fflush(stdin);
 	gets((char*)&str);
 	int	val;
-	if ((val & -0x50000000) != -0x50000000)
+	if ((val & 0xb0000000) != 0xb0000000)
 	{
 		puts((char*)&str);
 		return ((int)strdup((char*)&str));
