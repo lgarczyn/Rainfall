@@ -1,7 +1,15 @@
 #include <cstring>
 #include <cstdlib>
 
-class Number
+class INumber
+{
+  public:
+	virtual void setAnnotation(const char *str) = 0;
+	virtual int operator+(INumber& arg) = 0;
+	virtual int operator-(INumber& arg) = 0;
+};
+
+class Number: public INumber
 {
   private:
 	char _annotation[100];
@@ -12,13 +20,13 @@ class Number
 	{
 		memcpy(_annotation, str, strlen(str));
 	}
-	int operator+(Number& arg)
+	int operator+(INumber& arg)
 	{
-		return (this->_n + arg._n);
+		return (this->_n + (dynamic_cast<Number&>(arg))._n);
 	}
-	int operator-(Number& arg)
+	int operator-(INumber& arg)
 	{
-		return (this->_n - arg._n);
+		return (this->_n - (dynamic_cast<Number&>(arg))._n);
 	}
 };
 
@@ -26,8 +34,8 @@ int main(int ac, char **av)
 {
 	if (ac != 2)	
 		std::exit(1);
-	Number *num1 = new Number(5);
-	Number *num2 = new Number(6);
+	INumber *num1 = new Number(5);
+	INumber *num2 = new Number(6);
 	num1->setAnnotation(av[1]);
 	return (*num1 + *num2);
 }
