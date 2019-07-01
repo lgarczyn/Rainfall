@@ -22,7 +22,7 @@ auth ->
 reset ->
 	free(auth) // but does not set auth to null
 service ->
-	auth = input + strlen("service")
+	service = input + strlen("service")
 login ->
 	if (auth[32])
 		system("/bin/sh);
